@@ -1,0 +1,18 @@
+{
+  "name": "heartbeatlanclient",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "frto027",
+  "license": "MIT",
+  "dependencies": {
+    "@babel/core": "^7.23.3",
+    "@babel/plugin-syntax-jsx": "^7.23.3",
+    "@babel/plugin-transform-react-display-name": "^7.23.3",
+    "@babel/plugin-transform-react-jsx": "^7.22.15",
+    "@babel/preset-react": "^7.23.3"
+  }
+}
