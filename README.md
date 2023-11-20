@@ -2,10 +2,12 @@
 
 Receive heartrate via UDP LAN, and do more things.
 
+支持中文。
+
 TODO List:
 
 - release this app
-- make port number configurable
+- ~~make port number configurable~~ make a [issue](https://github.com/frto027/HeartbeatLanClient/issues) if anybody need this feature
 - a beautiful heart ui for OBS
 - maybe support other games
 
