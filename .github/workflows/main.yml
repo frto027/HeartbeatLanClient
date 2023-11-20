@@ -1,0 +1,11 @@
+name: build-artifact
+on: workflow_dispatch
+jobs:
+  build-and-upload:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: dir
+      - run: npm install -g pkg
+      - run: npx pkg . -t node18
+      - run: dir build/
