@@ -3,6 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "main.js",
+  "bin": "main.js",
+  "pkg":{
+    "assets": ["assets/*"],
+    "outputPath":"build"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

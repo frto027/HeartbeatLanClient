@@ -161,7 +161,7 @@ function handleOperate(msg){
 
 function handleReactThings(req,res){
     if(req.url == '/index.js'){
-        let code = fs.readFileSync(__dirname + "/index.jsx").toString("utf-8")
+        let code = fs.readFileSync(__dirname + "/assets/index.jsx").toString("utf-8")
         let remove_idx = code.indexOf("/* ==== any code before this line will be removed, don't edit this line. ==== */")
         if(remove_idx != -1){
             code = code.substring(remove_idx)
@@ -174,11 +174,11 @@ function handleReactThings(req,res){
         return true
     }else if(req.url == '/react.js'){
         res.writeHead(200, {'Content-Type': 'application/javascript'})
-        res.end(fs.readFileSync(__dirname + "/react.development.js"))
+        res.end(fs.readFileSync(__dirname + "/assets/react.development.js"))
         return true
     }else if(req.url == '/react-dom.js'){
         res.writeHead(200, {'Content-Type': 'application/javascript'})
-        res.end(fs.readFileSync(__dirname + "/react-dom.development.js"))
+        res.end(fs.readFileSync(__dirname + "/assets/react-dom.development.js"))
         return true
     }
     return false
@@ -187,7 +187,7 @@ function handleReactThings(req,res){
 const ui_server = http.createServer((req,res)=>{
     if(req.url == '/'){
         res.writeHead(200, {'Content-Type': 'text/html'})
-        res.end(fs.readFileSync(__dirname + "/index.html"))
+        res.end(fs.readFileSync(__dirname + "/assets/index.html"))
     }else if(req.url == '/heart'){
         res.writeHead(200, {'Content-Type': 'text/json'})
         res.end(reportHeart())

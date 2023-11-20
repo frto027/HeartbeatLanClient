@@ -24,7 +24,7 @@ TLDR all steps are...
 Do the following thing for the first setup.
 
 1. Pair your BLE Heartrate devices with your Andorid phone.
-2. Endure the android device and your computer connect to same network.
+2. Ensure the android device and your computer connect to same network.
 3. Install and open the Android app, select the heart devices you want broadcast.
 4. In your computer, install and open this app.
 5. (Optional)Open [the web browser](http://127.0.0.1:8842) to see all datas form BLE devices.
@@ -72,6 +72,7 @@ Not supported yet.
 - TODO [Android phone](#) apk download here
 - TODO [HRCounter](https://github.com/qe201020335/HRCounter) I will provide the mod config for fast setup later.
 
+The broadcast only used for server-pair. It is all private UDP connection if you turn off it after paried.
 
 # License
 
