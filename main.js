@@ -215,7 +215,7 @@ function handleReactThings(req,res){
             code = code.substring(remove_idx)
         }
         let txt = require("@babel/core").transformSync(code, {
-            presets: ["@babel/preset-react"],
+            presets: [require("@babel/preset-react")],
         }).code;
         res.writeHead(200, {'Content-Type': 'application/javascript; charset=utf-8'})
         res.end(Buffer.from(txt, "utf-8"))
