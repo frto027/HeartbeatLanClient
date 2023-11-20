@@ -2,16 +2,44 @@ const PORT = 8842
 
 const dgram = require('node:dgram');
 const http = require('node:http');
-const fs = require('node:fs')
+const fs = require('node:fs');
+const path = require('node:path');
+
 let server
+
+const CONFIG_FOLDER = path.join(process.env.APPDATA, "HeartbeatLanClient")
+const CONFIG_JSON_PATH = path.join(CONFIG_FOLDER, "config.json")
 
 const SERVER_MSG = "HeartBeatSenderHere"
 const CLIENT_MSG = "HeartBeatRecHere"
 
+const VALID_LANG = ['zh_CN', 'en_US']
+let config
+
+if(fs.existsSync(CONFIG_JSON_PATH)){
+    config = JSON.parse(fs.readFileSync(CONFIG_JSON_PATH).toString("utf-8"))
+}else{
+    config = {}
+}
+
+if(config.lang == undefined){
+    config.lang = "en_US"
+    if(process.env.LANG && process.env.LANG.indexOf("zh-CN") >= 0)
+        config.lang = "zh-CN"
+}
+
+saveConfig()
+
+function saveConfig(){
+    if(!fs.existsSync(CONFIG_FOLDER))
+        fs.mkdirSync(CONFIG_FOLDER)
+    fs.writeFileSync(CONFIG_JSON_PATH, Buffer.from(JSON.stringify(config),"utf-8"))
+}
+
+
 const servers = new Map()
 const devices = new Map() 
 
-let selectedDevMac = undefined
 function startUDPServer(){
     server = dgram.createSocket('udp4');
     server.on('error', (err) => {
@@ -107,7 +135,8 @@ function reportStatus(){
     return JSON.stringify({
         server: Array.from(servers.values()),
         device: Array.from(devices.values()),
-        selectedDevMac: selectedDevMac
+        config: config,
+        configFolder: CONFIG_FOLDER,
     })
 }
 
@@ -115,7 +144,7 @@ function reportHeart(){
     let dev = {heartrate:undefined}
     let time = 0
     for(let d of devices.values()){
-        if(selectedDevMac && d.mac != selectedDevMac)
+        if(config.selectedDevMac && d.mac != config.selectedDevMac)
             continue
         if(time < d.time){
             time = d.time
@@ -136,7 +165,8 @@ function removeIgnoredDevice(){
 
 function handleOperate(msg){
     if(msg.op == "selectBLE" && typeof(msg.mac) == "string"){
-        selectedDevMac = msg.mac
+        config.selectedDevMac = msg.mac
+        saveConfig()
         return {result:"success"}
     }
     if(msg.op == "ignore" && typeof(msg.server) == "string"){
@@ -155,6 +185,10 @@ function handleOperate(msg){
             return {result:"success"}
         }
         return {result:"error"}
+    }
+    if(msg.op == "setlang" && typeof(msg.lang) == "string" && VALID_LANG.indexOf(msg.lang) >= 0){
+        config.lang = msg.lang
+        return {result:"success"}
     }
     return {result: "error"}
 }
@@ -184,6 +218,19 @@ function handleReactThings(req,res){
     return false
 }
 
+function handleBootstrap(req,res){
+    if(req.url == '/bootstrap.js'){
+        res.writeHead(200, {'Content-Type': 'application/javascript'})
+        res.end(fs.readFileSync(__dirname + "/assets/bootstrap.js"))
+        return true
+    }else if(req.url == '/bootstrap.css'){
+        res.writeHead(200, {'Content-Type': 'text/css; charset=utf-8'})
+        res.end(fs.readFileSync(__dirname + "/assets/bootstrap.css"))
+        return true
+    }
+    return false
+}
+
 const ui_server = http.createServer((req,res)=>{
     if(req.url == '/'){
         res.writeHead(200, {'Content-Type': 'text/html'})
@@ -194,7 +241,7 @@ const ui_server = http.createServer((req,res)=>{
     }else if(req.url == '/status'){
         res.writeHead(200, {'Content-Type': 'text/json'})
         res.end(reportStatus())
-    }else if(handleReactThings(req,res)){
+    }else if(handleReactThings(req,res) || handleBootstrap(req,res)){
         
     }else if(req.url.startsWith("/op?")){
         let r = handleOperate(JSON.parse(decodeURIComponent(req.url.substring("/op?".length))))

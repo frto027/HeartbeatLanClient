@@ -1,8 +1,72 @@
 <html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>HeartbeatLanClient</title>
+    </head>
     <body>
         <!-- <a href='/status'>check the status.</a> -->
         <!-- <a href='/heart'>hert.json</a> -->
         <div id="root"></div>
+        <script src="bootstrap.js"></script>
+        <link href="bootstrap.css" rel="stylesheet">
+        
+        <script>
+            var LANG_RES = {
+                'en_US':{
+                    CUR_LANG: 'current language',
+                    LANG: 'English',
+                    CONFIG: 'configs',
+                    HRLINK_TITLE:'HRRate link for beatsaber',
+                    DEV_CUR_SEL: 'current selected device:',
+                    DEV_LIST_TITLE: 'devices(your heartbeat devices)',
+                    SERVER_LIST_TITLE: 'servers(your phone)',
+                    DEV_ITEM_TIME: 'last tick:',
+                    DEV_ITEM_FROM: 'server:',
+                    DEV_SELECTED: 'selected',
+                    DEV_ITEM_SELECT: 'select',
+                    DEV_ITEM_MAC: 'mac:',
+                    SERVER_ITEM_IGNORED:'ignored',
+                    SERVER_ITEM_USED:'using',
+                    SERVER_ITEM_KEEPALIVE_TIME: 'last alive time',
+                    SERVER_ITEM_DONT_IGNORE_BTN: 'dont ignore',
+                    SERVER_ITEM_IGNORE_BTN: 'ignore',
+                    CUR_CFG_FOLDER: 'current config folder',
+                    SEC_AGP: ' sec ago',
+                    NO_SERVER: 'no server',
+                    NO_DEVICE: 'no device',
+                    CFG_TITLE_ITEM: 'Item',
+                    CFG_TITLE_VALUE: 'Value',
+                },
+                'zh_CN':{
+                    CUR_LANG: '当前语言',
+                    LANG: '简体中文',
+                    CONFIG: '设置',
+                    HRLINK_TITLE:'节奏光剑HRCounter配置',
+                    DEV_CUR_SEL: '当前选中设备:',
+                    DEV_LIST_TITLE: '设备（心率设备）',
+                    SERVER_LIST_TITLE: '服务器（手机）',
+                    DEV_ITEM_TIME: '上次更新:',
+                    DEV_ITEM_FROM: '服务器:',
+                    DEV_SELECTED: '选中',
+                    DEV_ITEM_MAC: 'MAC地址:',
+                    DEV_ITEM_SELECT: '选择',
+                    SERVER_ITEM_IGNORED:'已忽略',
+                    SERVER_ITEM_USED:'使用中',
+                    SERVER_ITEM_KEEPALIVE_TIME: '上次更新时间',
+                    SERVER_ITEM_DONT_IGNORE_BTN: '不要忽略',
+                    SERVER_ITEM_IGNORE_BTN: '忽略设备',
+                    CUR_CFG_FOLDER: '当前配置文件夹',
+                    SEC_AGO: '秒前',
+                    NO_SERVER: '暂无服务器',
+                    NO_DEVICE: '暂无设备',
+                    CFG_TITLE_ITEM: '项目',
+                    CFG_TITLE_VALUE: '值',
+                }
+            }
+            LANG_RES.zh_CN.__proto__ = LANG_RES.en_US
+
+        </script>
         <script src="react.js"></script>
         <script src="react-dom.js"></script>
         <script src="index.js"></script>
