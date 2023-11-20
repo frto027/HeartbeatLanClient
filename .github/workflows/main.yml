@@ -1,5 +1,11 @@
 name: build-artifact
-on: push
+on:
+  push:
+    branches:
+      - 'main'
+    paths-ignore:
+      - '**.bat'
+      - '**.md'
 jobs:
   build-and-upload:
     runs-on: windows-latest
