@@ -5,7 +5,6 @@ Receive heartrate via UDP LAN, and do more things.
 TODO List:
 
 - release this app
-- stop pair process, and manually enable it.
 - make port number configurable
 - a beautiful heart ui for OBS
 - maybe support other games

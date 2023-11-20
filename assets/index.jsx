@@ -111,8 +111,20 @@ function renderRoot(data){
                     <td>{L.CUR_CFG_FOLDER}</td>
                     <td><pre>{data.configFolder}</pre></td>
                 </tr>
+                <tr>
+                    <td>{L.PAIRING}</td>
+                    <td>
+                        {data.pairing ? L.PAIRING_YES : L.PAIRING_NO }
+                        {
+                        data.pairing ?
+                            <button className="btn btn-link btn-sm" onClick={()=>operate({op:"stoppair"})}>{L.PAIRING_DISABLE_BTN}</button>:
+                            <button className="btn btn-link btn-sm" onClick={()=>operate({op:"startpair"})}>{L.PAIRING_ENABLE_BTN}</button>
+                        }
+                    </td>
+                </tr>
             </tbody>
         </table>
+        <button className='btn btn-danger btn-sm' onClick={()=>{operate({op:'close'});alert(L.CLOSE_HINT)}}>{L.CLOSE_SERVER}</button>
     </div>
 }
 

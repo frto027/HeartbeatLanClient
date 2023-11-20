@@ -36,11 +36,12 @@ function saveConfig(){
     fs.writeFileSync(CONFIG_JSON_PATH, Buffer.from(JSON.stringify(config),"utf-8"))
 }
 
-
+let pairing = false
 const servers = new Map()
 const devices = new Map() 
 
 function startUDPServer(){
+    pairing = true
     server = dgram.createSocket('udp4');
     server.on('error', (err) => {
         console.error(`server error:\n${err.stack}`);
@@ -75,6 +76,7 @@ function startUDPServer(){
 function stopUDPServer(){
     server.close()
     server = undefined
+    pairing = false
 }
 
 function onDeviceMessage(addrstr, devName, bleMacAddr, heartrate){
@@ -137,6 +139,7 @@ function reportStatus(){
         device: Array.from(devices.values()),
         config: config,
         configFolder: CONFIG_FOLDER,
+        pairing: pairing
     })
 }
 
@@ -189,6 +192,17 @@ function handleOperate(msg){
     if(msg.op == "setlang" && typeof(msg.lang) == "string" && VALID_LANG.indexOf(msg.lang) >= 0){
         config.lang = msg.lang
         return {result:"success"}
+    }
+    if(msg.op == "startpair"){
+        if(!pairing)
+            startUDPServer()
+    }
+    if(msg.op == "stoppair"){
+        if(pairing)
+            stopUDPServer()
+    }
+    if(msg.op == "close"){
+        process.exit(0)
     }
     return {result: "error"}
 }
