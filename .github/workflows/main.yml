@@ -9,3 +9,8 @@ jobs:
       - run: npm install -g pkg
       - run: npx pkg . -t node18
       - run: dir build/
+      - uses: actions/upload-artifact@v3
+        with:
+          name: heartbeat-lan-client
+          path: build/heartbeatlanclient.exe
+
