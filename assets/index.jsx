@@ -127,6 +127,9 @@ function renderRoot(data){
         <button className='btn btn-danger btn-sm' onClick={()=>{operate({op:'close'});alert(L.CLOSE_HINT)}}>{L.CLOSE_SERVER}</button>
         &nbsp;&nbsp;
         <a href={'hrcounter.html?' + data.config.lang} target="_blank" >BeatSaber</a>
+        <hr />
+        <p>{L.PROTOCOL_VER_PRE}{window.init_cfg.protocol_ver}{L.PROTOCOL_VER_POST}</p>
+
     </div>
 }
 

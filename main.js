@@ -8,11 +8,13 @@ const hrcounter = require("./hrcounter");
 
 let server
 
+const PROTOCOL_VER = "001"
+
 const CONFIG_FOLDER = path.join(process.env.APPDATA, "HeartbeatLanClient")
 const CONFIG_JSON_PATH = path.join(CONFIG_FOLDER, "config.json")
 
-const SERVER_MSG = "HeartBeatSenderHere001"
-const CLIENT_MSG = "HeartBeatRecHere001"
+const SERVER_MSG = "HeartBeatSenderHere" + PROTOCOL_VER
+const CLIENT_MSG = "HeartBeatRecHere" + PROTOCOL_VER
 
 const VALID_LANG = ['zh_CN', 'en_US']
 
@@ -146,7 +148,8 @@ function reportStatus(){
 }
 function indexDynamicJs(){
     return "window.init_cfg = " + JSON.stringify({
-        hrcounter:hrcounter.RES
+        hrcounter:hrcounter.RES,
+        protocol_ver:PROTOCOL_VER
     })
 }
 
