@@ -11,8 +11,8 @@ let server
 const CONFIG_FOLDER = path.join(process.env.APPDATA, "HeartbeatLanClient")
 const CONFIG_JSON_PATH = path.join(CONFIG_FOLDER, "config.json")
 
-const SERVER_MSG = "HeartBeatSenderHere"
-const CLIENT_MSG = "HeartBeatRecHere"
+const SERVER_MSG = "HeartBeatSenderHere001"
+const CLIENT_MSG = "HeartBeatRecHere001"
 
 const VALID_LANG = ['zh_CN', 'en_US']
 
