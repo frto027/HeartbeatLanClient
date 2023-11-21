@@ -207,8 +207,9 @@ function handleOperate(msg){
     return {result: "error"}
 }
 
-function handleReactThings(req,res){
-    if(req.url == '/index.js'){
+const URL_HANDLERS = {
+    __proto__: null,
+    '/index.js': (req, res)=>{
         let code = fs.readFileSync(__dirname + "/assets/index.jsx").toString("utf-8")
         let remove_idx = code.indexOf("/* ==== any code before this line will be removed, don't edit this line. ==== */")
         if(remove_idx != -1){
@@ -220,50 +221,68 @@ function handleReactThings(req,res){
         res.writeHead(200, {'Content-Type': 'application/javascript; charset=utf-8'})
         res.end(Buffer.from(txt, "utf-8"))
         return true
-    }else if(req.url == '/react.js'){
-        res.writeHead(200, {'Content-Type': 'application/javascript'})
-        res.end(fs.readFileSync(__dirname + "/assets/react.development.js"))
-        return true
-    }else if(req.url == '/react-dom.js'){
-        res.writeHead(200, {'Content-Type': 'application/javascript'})
-        res.end(fs.readFileSync(__dirname + "/assets/react-dom.development.js"))
-        return true
-    }
-    return false
-}
-
-function handleBootstrap(req,res){
-    if(req.url == '/bootstrap.js'){
-        res.writeHead(200, {'Content-Type': 'application/javascript'})
-        res.end(fs.readFileSync(__dirname + "/assets/bootstrap.js"))
-        return true
-    }else if(req.url == '/bootstrap.css'){
-        res.writeHead(200, {'Content-Type': 'text/css; charset=utf-8'})
-        res.end(fs.readFileSync(__dirname + "/assets/bootstrap.css"))
-        return true
-    }
-    return false
-}
-
-const ui_server = http.createServer((req,res)=>{
-    if(req.url == '/'){
-        res.writeHead(200, {'Content-Type': 'text/html'})
-        res.end(fs.readFileSync(__dirname + "/assets/index.html"))
-    }else if(req.url == '/heart'){
+    },
+    '/react.js': __dirname + '/assets/react.development.js',
+    '/react-dom.js': __dirname + "/assets/react-dom.development.js",
+    '/':__dirname + "/assets/index.html",
+    '/bootstrap.js':__dirname + "/assets/bootstrap.js",
+    '/bootstrap.css':__dirname + "/assets/bootstrap.css",
+    '/heart':(req,res)=>{
         res.writeHead(200, {'Content-Type': 'text/json'})
         res.end(reportHeart())
-    }else if(req.url == '/status'){
+        return true
+    },
+    '/status':(req,res)=>{
         res.writeHead(200, {'Content-Type': 'text/json'})
         res.end(reportStatus())
-    }else if(handleReactThings(req,res) || handleBootstrap(req,res)){
-        
-    }else if(req.url.startsWith("/op?")){
+        return true
+    },
+    '/op':(req,res)=>{
         let r = handleOperate(JSON.parse(decodeURIComponent(req.url.substring("/op?".length))))
         res.writeHead(200, {'Content-Type': 'text/json'})
         res.end(JSON.stringify(r))
+        return true
+    }
+
+}
+
+const ui_server = http.createServer((req,res)=>{
+    let url = req.url
+    if(!url){
+        res.writeHead(404)
+        res.end("not found")
+        return
+    }
+    url = url.split('?')[0]
+
+    let handler = URL_HANDLERS[url]
+
+    if(!handler){
+        res.writeHead(404)
+        res.end("not found")
+        return
+    }
+
+    if(typeof(handler) == "string"){
+        if(handler.endsWith(".js")){
+            res.writeHead(200, {'Content-Type': 'application/javascript; charset=utf-8'})
+        }else if(handler.endsWith("html")){
+            res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8'})
+        }else if(handler.endsWith('.css')){
+            res.writeHead(200, {'Content-Type': 'text/css; charset=utf-8'})
+        }else{
+            res.writeHead(404)
+            res.end("not found")
+            return    
+        }
+        res.end(fs.readFileSync(handler))
+        return
+    }else if(typeof(handler) == "function" && handler(req,res)){
+        return
     }else{
         res.writeHead(404)
         res.end("not found")
+        return
     }
 })
 
