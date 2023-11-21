@@ -126,10 +126,10 @@ function renderRoot(data){
 
         <button className='btn btn-danger btn-sm' onClick={()=>{operate({op:'close'});alert(L.CLOSE_HINT)}}>{L.CLOSE_SERVER}</button>
         &nbsp;&nbsp;
-        <a href={'hrcounter.html?' + data.config.lang} target="_blank" >BeatSaber</a>
+        <a href={'hrcounter.html?' + data.config.lang} target="_blank">BeatSaber</a>
         <hr />
         <p>{L.PROTOCOL_VER_PRE}{window.init_cfg.protocol_ver}{L.PROTOCOL_VER_POST}</p>
-
+        <a href='https://github.com/frto027/HeartbeatLanClient/blob/master/LICENSE' target="_blank">{L.LICENSE}</a> MIT LICENSE <a href='https://github.com/frto027/HeartbeatLanClient'>@frto027</a> 2023
     </div>
 }
 

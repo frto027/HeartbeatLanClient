@@ -36,7 +36,7 @@ window.LANG_RES = {
         PAIRING_DISABLE_BTN:'disable',
         CLOSE_SERVER:'close',
         CLOSE_HINT:'close operation will be send, and the web page will unavaliable soon.',
-
+        LICENSE:'License',
     },
     'zh_CN':{
         CUR_LANG: '当前语言',
@@ -72,7 +72,8 @@ window.LANG_RES = {
         PAIRING_ENABLE_BTN:'开启配对',
         PAIRING_DISABLE_BTN:'关闭配对',
         CLOSE_SERVER:'关闭',
-        CLOSE_HINT:'关闭请求已经发送，当前页面马上将不能访问。'
+        CLOSE_HINT:'关闭请求已经发送，当前页面马上将不能访问。',
+        LICENSE:'许可协议',
     }
 }
 LANG_RES.zh_CN.__proto__ = LANG_RES.en_US
