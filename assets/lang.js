@@ -41,7 +41,7 @@ window.LANG_RES = {
         LANG: '简体中文',
         CONFIG: '设置',
         HRLINK_TITLE:'节奏光剑HRCounter模组（含配置文件）',
-        HRLINK_HINT:'下载上面的第一个文件，解压并覆盖到游戏中即可使用。',
+        HRLINK_HINT:'下载列表中的第一个文件，解压并覆盖到游戏中即可使用。',
         HRLINK_COPYRIGHT: '这些文件来自HRCounter项目，并非本应用的一部分。本应用提供接口配置文件，并依照MIT协议对其分发。其许可协议如下：',
         DEV_CUR_SEL: '当前选中设备:',
         DEV_LIST_TITLE: '设备（心率设备）',
