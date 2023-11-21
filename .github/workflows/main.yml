@@ -13,8 +13,8 @@ jobs:
       - uses: actions/checkout@v4
       - run: npm install
       - run: npm install -g pkg
+      - run: python ./download_dependency.py
       - run: npx pkg . -t node18
-      - run: dir build/
       - uses: actions/upload-artifact@v3
         with:
           name: heartbeat-lan-client

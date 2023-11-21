@@ -4,6 +4,7 @@ const dgram = require('node:dgram');
 const http = require('node:http');
 const fs = require('node:fs');
 const path = require('node:path');
+const hrcounter = require("./hrcounter");
 
 let server
 
@@ -14,6 +15,7 @@ const SERVER_MSG = "HeartBeatSenderHere"
 const CLIENT_MSG = "HeartBeatRecHere"
 
 const VALID_LANG = ['zh_CN', 'en_US']
+
 let config
 
 if(fs.existsSync(CONFIG_JSON_PATH)){
@@ -139,8 +141,35 @@ function reportStatus(){
         device: Array.from(devices.values()),
         config: config,
         configFolder: CONFIG_FOLDER,
-        pairing: pairing
+        pairing: pairing,
     })
+}
+function indexDynamicJs(){
+    return "window.init_cfg = " + JSON.stringify({
+        hrcounter:hrcounter.RES
+    })
+}
+
+function downloadHrcounterZip(req,res){
+    if(!req.url.startsWith("/LAN-")){
+        return false
+    }
+    let name = req.url.substring('/LAN-'.length)
+    let zip_path = path.join(__dirname, "HRCounterAssets", name)
+    if(!fs.existsSync(zip_path)){
+        return false
+    }
+    hrcounter.inject_zip(zip_path, PORT, (buffer)=>{
+        res.writeHead(200, {
+            'Content-Type': 'application/zip',
+            'Content-Disposition': 'attachment; filename="LAN-' + name +'"'
+        })
+        res.end(buffer)
+    }, ()=>{
+        res.writeHead(404)
+        res.end("not found")
+    })
+    return true
 }
 
 function reportHeart(){
@@ -209,24 +238,6 @@ function handleOperate(msg){
 
 const URL_HANDLERS = {
     __proto__: null,
-    '/index.js': (req, res)=>{
-        let code = fs.readFileSync(__dirname + "/assets/index.jsx").toString("utf-8")
-        let remove_idx = code.indexOf("/* ==== any code before this line will be removed, don't edit this line. ==== */")
-        if(remove_idx != -1){
-            code = code.substring(remove_idx)
-        }
-        let txt = require("@babel/core").transformSync(code, {
-            presets: [require("@babel/preset-react")],
-        }).code;
-        res.writeHead(200, {'Content-Type': 'application/javascript; charset=utf-8'})
-        res.end(Buffer.from(txt, "utf-8"))
-        return true
-    },
-    '/react.js': __dirname + '/assets/react.development.js',
-    '/react-dom.js': __dirname + "/assets/react-dom.development.js",
-    '/':__dirname + "/assets/index.html",
-    '/bootstrap.js':__dirname + "/assets/bootstrap.js",
-    '/bootstrap.css':__dirname + "/assets/bootstrap.css",
     '/heart':(req,res)=>{
         res.writeHead(200, {'Content-Type': 'text/json'})
         res.end(reportHeart())
@@ -237,14 +248,66 @@ const URL_HANDLERS = {
         res.end(reportStatus())
         return true
     },
+    '/index.dynamic.js':(req,res)=>{
+        res.writeHead(200, {'Content-Type': 'application/javascript; charset=utf-8'})
+        res.end(Buffer.from(indexDynamicJs(), "utf-8"))
+        return true
+    },
     '/op':(req,res)=>{
         let r = handleOperate(JSON.parse(decodeURIComponent(req.url.substring("/op?".length))))
         res.writeHead(200, {'Content-Type': 'text/json'})
         res.end(JSON.stringify(r))
         return true
     }
-
 }
+//add static resources
+fs.readdirSync(path.join(__dirname,'assets')).forEach((file)=>{
+    let local_file = path.join(__dirname,'assets',file)
+    if(file.endsWith('.js')){
+        URL_HANDLERS['/' + file] = function(req, res){
+            res.writeHead(200, {'Content-Type': 'application/javascript; charset=utf-8'})
+            res.end(fs.readFileSync(local_file))
+            return true
+        }
+    }
+    if(file.endsWith('.html')){
+        URL_HANDLERS['/' + file] = function(req, res){
+            res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8'})
+            res.end(fs.readFileSync(local_file))
+            return true
+        }
+    }
+    if(file.endsWith('.css')){
+        URL_HANDLERS['/' + file] = function(req, res){
+            res.writeHead(200, {'Content-Type': 'text/css; charset=utf-8'})
+            res.end(fs.readFileSync(local_file))
+            return true
+        }
+    }
+    if(file.endsWith('.jsx')){
+        URL_HANDLERS['/' + file.substring(0,file.length-1)] = function(req,res){
+            let code = fs.readFileSync(local_file).toString("utf-8")
+            let remove_idx = code.indexOf("/* ==== any code before this line will be removed, don't edit this line. ==== */")
+            if(remove_idx != -1){
+                code = code.substring(remove_idx)
+            }
+            let txt = require("@babel/core").transformSync(code, {
+                presets: [require("@babel/preset-react")],
+            }).code;
+            res.writeHead(200, {'Content-Type': 'application/javascript; charset=utf-8'})
+            res.end(Buffer.from(txt, "utf-8"))
+            return true
+        }
+    }
+})
+
+hrcounter.RES.forEach((v)=>{
+    URL_HANDLERS['/LAN-' + v] = downloadHrcounterZip
+})
+
+URL_HANDLERS['/'] = URL_HANDLERS['/index.html']
+URL_HANDLERS['/react.js'] = URL_HANDLERS['/react.development.js']
+URL_HANDLERS['/react-dom.js'] = URL_HANDLERS['/react-dom.development.js']
 
 const ui_server = http.createServer((req,res)=>{
     let url = req.url
@@ -263,21 +326,7 @@ const ui_server = http.createServer((req,res)=>{
         return
     }
 
-    if(typeof(handler) == "string"){
-        if(handler.endsWith(".js")){
-            res.writeHead(200, {'Content-Type': 'application/javascript; charset=utf-8'})
-        }else if(handler.endsWith("html")){
-            res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8'})
-        }else if(handler.endsWith('.css')){
-            res.writeHead(200, {'Content-Type': 'text/css; charset=utf-8'})
-        }else{
-            res.writeHead(404)
-            res.end("not found")
-            return    
-        }
-        res.end(fs.readFileSync(handler))
-        return
-    }else if(typeof(handler) == "function" && handler(req,res)){
+    if(typeof(handler) == "function" && handler(req,res)){
         return
     }else{
         res.writeHead(404)

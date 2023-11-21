@@ -88,9 +88,7 @@ function renderRoot(data){
         {/* <div>{L.DEV_CUR_SEL} {selected_dev}</div> */}
         <div>{devices}</div>
         
-        <h2 style={{marginTop:"32px"}}>{L.HRLINK_TITLE}</h2>
-        <pre>{'{"DataSource":"WebRequest","FeedLink":"' + window.location.href +  'heart"}'}</pre>
-        <h2>{L.CONFIG}</h2>
+        <h2 style={{marginTop:"32px"}}>{L.CONFIG}</h2>
         <table className="table">
             <thead>
                 <tr>
@@ -124,7 +122,11 @@ function renderRoot(data){
                 </tr>
             </tbody>
         </table>
+
+
         <button className='btn btn-danger btn-sm' onClick={()=>{operate({op:'close'});alert(L.CLOSE_HINT)}}>{L.CLOSE_SERVER}</button>
+        &nbsp;&nbsp;
+        <a href={'hrcounter.html?' + data.config.lang} target="_blank" >BeatSaber</a>
     </div>
 }
 

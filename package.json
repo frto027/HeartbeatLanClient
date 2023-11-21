@@ -4,9 +4,12 @@
   "description": "",
   "main": "main.js",
   "bin": "main.js",
-  "pkg":{
-    "assets": ["assets/*"],
-    "outputPath":"build"
+  "pkg": {
+    "assets": [
+      "assets/*",
+      "HRCounterAssets/*"
+    ],
+    "outputPath": "build"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -18,6 +21,7 @@
     "@babel/plugin-syntax-jsx": "^7.23.3",
     "@babel/plugin-transform-react-display-name": "^7.23.3",
     "@babel/plugin-transform-react-jsx": "^7.22.15",
-    "@babel/preset-react": "^7.23.3"
+    "@babel/preset-react": "^7.23.3",
+    "jszip": "^3.10.1"
   }
 }
