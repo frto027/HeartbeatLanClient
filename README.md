@@ -49,18 +49,23 @@ everything works fine. It will work fine. I trust it!
 
 # Fast setup for BeatSaber(Quest)
 
-Release soon!
+[Release soon](https://github.com/frto027/HeartBeatLanClientBSQuest)!
 
 # What it does
 
 ```
-                                                 ┌──────┐
-┌─────────┐   Bluetooth(BLE)                     │......│
-│POLAR H10├────────────────┐                     └───▲──┘
-└─────────┘                │                         │
-                           │                         │
-┌───────────┐              │   ┌─────────────┐       │
-│Smart watch├──────────────┼──►│Android Phone├───────┤UDP Package
+                                         ┌─────────┐
+                                         │beatsaber│
+                                         │ (quest) │
+                                         └─────▲───┘
+                                               │
+                                               │ ┌──────┐
+┌─────────┐   Bluetooth(BLE)                   │ │......│
+│POLAR H10├────────────────┐                   │ └───▲──┘
+└─────────┘                │                   │     │
+                           │                   │     │
+┌───────────┐              │   ┌─────────────┐ │     │
+│Smart watch├──────────────┼──►│Android Phone├─┴─────┤UDP Package
 └───────────┘              │   └─────────────┘       │via WLAN
                            │                         │
 ┌────────────────────────┐ │                         │
@@ -75,7 +80,6 @@ Release soon!
               │to view deails│    └───────────────────────┘    │display inside OBS│
               └──────────────┘                                 │(TODO)            │
                                                                └──────────────────┘
-
 ```
 
 - [Android phone](https://github.com/frto027/HeartbeatLanServer/releases/latest) apk download here
