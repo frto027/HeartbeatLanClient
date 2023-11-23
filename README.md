@@ -49,7 +49,7 @@ everything works fine. It will work fine. I trust it!
 
 # Fast setup for BeatSaber(Quest)
 
-Not supported yet.
+Release soon!
 
 # What it does
 
