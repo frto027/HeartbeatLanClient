@@ -2,13 +2,7 @@
 
 Receive heartrate via UDP LAN, and do more things.
 
-支持中文。从局域网的中获取心率信息，然后做些什么。。。
-
-TODO List:
-
-- ~~make port number configurable~~ make a [issue](https://github.com/frto027/HeartbeatLanClient/issues) if anybody need this feature
-- a beautiful heart ui for OBS
-- maybe support other games
+支持中文。从局域网的中获取心率信息，然后做些事情。
 
 # 节奏光剑（PCVR）配置说明
 
@@ -20,6 +14,10 @@ TODO List:
 4. 打开游戏即可游玩。
 
 别忘了设置手机APP的省电策略为无限制（或类似选项）。不必担心后台驻留，点击“关闭程序”按钮后，程序会进行完全的自我抹除。
+
+# 节奏光剑（一体机Quest）配置说明
+
+apk是同一个，但[用这个mod](https://github.com/frto027/HeartBeatLanClientBSQuest)就可以直接在游戏中显示心率数据了!
 
 # Fast setup for BeatSaber(PCVR)
 
@@ -49,7 +47,7 @@ everything works fine. It will work fine. I trust it!
 
 # Fast setup for BeatSaber(Quest)
 
-[Release soon](https://github.com/frto027/HeartBeatLanClientBSQuest)!
+[Please use this mod](https://github.com/frto027/HeartBeatLanClientBSQuest)!
 
 # What it does
 
@@ -86,6 +84,12 @@ everything works fine. It will work fine. I trust it!
 - [HRCounter](https://github.com/qe201020335/HRCounter) A fast config generator is included in this software.
 
 The broadcast only used for server-pair. It is all private UDP connection if you turn off it after paried.
+
+TODO List:
+
+- ~~make port number configurable~~ make a [issue](https://github.com/frto027/HeartbeatLanClient/issues) if anybody need this feature
+- a beautiful heart ui for OBS
+- maybe support other games
 
 # License
 
