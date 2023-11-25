@@ -63,7 +63,8 @@ function startUDPServer(){
                     port: rinfo.port,
                     ignore: false,
                     socket: undefined,
-                    lastKeepAliveMs: 0
+                    lastKeepAliveMs: 0,
+                    lastResponseTime: new Date().getTime()
                 })
                 stopUDPServer()
             }
@@ -84,8 +85,13 @@ function stopUDPServer(){
 }
 
 function onDeviceMessage(addrstr, devName, bleMacAddr, heartrate){
-    if(servers.has(addrstr) && servers.get(addrstr).ignore)
-        return
+    if(servers.has(addrstr)){
+        let s = servers.get(addrstr)
+        if(s.ignore)
+            return
+        s.lastResponseTime = new Date().getTime()
+    }
+    
     if(!devices.has(bleMacAddr)){
         devices.set(bleMacAddr, {
             from: addrstr,
@@ -96,8 +102,7 @@ function onDeviceMessage(addrstr, devName, bleMacAddr, heartrate){
         })
     }else{
         let d = devices.get(bleMacAddr)
-        if(d.from != addrstr)
-            console.warn("inconsist server detected.")
+        d.from = addrstr
         d.name = devName
         d.mac = bleMacAddr
         d.heartrate = heartrate

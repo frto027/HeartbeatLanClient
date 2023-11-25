@@ -8,6 +8,7 @@ const root = ReactDOM.createRoot(domNode);
 let selected_dev = undefined
 let hide_mac = true
 let L = LANG_RES['en_US']
+let need_repair = false
 
 function getDeltaTime(timems){
     let delta_ms = new Date().getTime() - timems
@@ -34,7 +35,9 @@ function renderServer(server){
                 }
             </div>
         {/* <span>{L.SERVER_ITEM_KEEPALIVE_TIME}: {getDeltaTime(server.lastKeepAliveMs)}</span> */}
-    </button>)
+        {(new Date().getTime() - server.lastResponseTime > 70*1000) ? <span>{L.LAST_RESPONSE + getDeltaTime(server.lastResponseTime)}</span>:
+            (need_repair = false, undefined)}
+        </button>)
 }
 
 function renderDevice(device){
@@ -69,12 +72,17 @@ function renderRoot(data){
 
     const servers = []
     const devices = []
+    need_repair = true
     for(let server of data.server){
         servers.push(renderServer(server))
     }
     for(let device of data.device){
         devices.push(renderDevice(device))
     }
+
+    
+    const need_repair_hint = need_repair && !data.pairing ? 
+    <div className='alert alert-warning'>{L.NEED_PAIR} <button className='btn btn-link btn-sm' onClick={()=>operate({op:'startpair'})}>{L.CLICK_ME_TO_PAIR}</button></div> : undefined
 
     if(servers.length == 0){
         servers.push(<div className="alert alert-info" key="noserver" role="alert">{L.NO_SERVER}</div>)
@@ -85,6 +93,7 @@ function renderRoot(data){
     return <div className="container">
         <h2 style={{marginTop:"32px"}}>{L.SERVER_LIST_TITLE}</h2>
         <div><div className="list-group">{servers}</div></div>
+        {need_repair_hint}
         <h2 style={{marginTop:"32px"}}>{L.DEV_LIST_TITLE}</h2>
         {/* <div>{L.DEV_CUR_SEL} {selected_dev}</div> */}
         <div>{devices}</div>

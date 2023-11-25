@@ -1,4 +1,4 @@
-# HeartbeatLanClient
+# HeartbeatLanReceiver
 
 [中文](README.cn.md)
 
@@ -41,9 +41,9 @@ graph TD;
     POLAR_H10[Polar H10]
     SMART_WATCH[Shart watch, broadcast heartrate]
     BLE_DEV[other BLE heartrate devs]
-    PHONE[phone, android apk]
-    BEATSABER[beatsaber quest mod]
-    PCAPP[webpage client <b>YOU ARE HERE</b>]
+    PHONE[sender, phone, android apk]
+    BEATSABER[receiver, beatsaber quest mod]
+    PCAPP[receiver, webpage client <b>YOU ARE HERE</b>]
     BEATSABER_PC[Beatsaber PC game with HRCounter mod]
     BROWSER[browser to view config and datas]
 

@@ -1,4 +1,4 @@
-# 蓝牙心率局域网客户端
+# 心率LAN接收端
 
 从局域网的中获取心率信息，然后做些事情。
 
@@ -29,9 +29,9 @@ graph TD;
     POLAR_H10[Polar H10心率带]
     SMART_WATCH[智能手环或手表 心率广播]
     BLE_DEV[其它蓝牙心率设备]
-    PHONE[手机 安卓apk]
-    BEATSABER[节奏光剑quest一体机mod]
-    PCAPP[webpage客户端 <b>你在这里</b>]
+    PHONE[发送端 手机 安卓apk]
+    BEATSABER[接收端 节奏光剑quest一体机mod]
+    PCAPP[接收端 webpage服务 <b>你在这里</b>]
     BEATSABER_PC[节奏光剑PC HRCounter模组]
     BROWSER[浏览器 查看数据和设置]
 
