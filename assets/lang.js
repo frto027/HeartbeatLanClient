@@ -37,6 +37,9 @@ window.LANG_RES = {
         CLOSE_SERVER:'close',
         CLOSE_HINT:'close operation will be send, and the web page will unavaliable soon.',
         LICENSE:'License',
+        SHOW_DEV_MAC: 'show device mac address',
+        SHOW_DEV_MAC_YES: 'yes, click to hide',
+        SHOW_DEV_MAC_NO: 'no, click to show',
     },
     'zh_CN':{
         CUR_LANG: '当前语言',
@@ -74,6 +77,9 @@ window.LANG_RES = {
         CLOSE_SERVER:'关闭',
         CLOSE_HINT:'关闭请求已经发送，当前页面马上将不能访问。',
         LICENSE:'许可协议',
+        SHOW_DEV_MAC: '显示设备MAC地址',
+        SHOW_DEV_MAC_YES: '是，点击隐藏',
+        SHOW_DEV_MAC_NO: '否，点击显示',
     }
 }
 LANG_RES.zh_CN.__proto__ = LANG_RES.en_US

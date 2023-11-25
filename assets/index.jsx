@@ -6,6 +6,7 @@ const domNode = document.getElementById('root');
 const root = ReactDOM.createRoot(domNode);
 
 let selected_dev = undefined
+let hide_mac = true
 let L = LANG_RES['en_US']
 
 function getDeltaTime(timems){
@@ -57,7 +58,7 @@ function renderDevice(device){
             {L.DEV_ITEM_TIME} {getDeltaTime(device.time)}
         </div>
         <div className="card-footer text-body-secondary">
-        {device.mac},{device.from}
+        {hide_mac ? "" : (device.mac + ",")}{device.from}
         </div>
     </div>)
 }
@@ -103,7 +104,14 @@ function renderRoot(data){
                         {L.LANG}
                         {data.config.lang == 'en_US' ? undefined : <button className="btn btn-link btn-sm" onClick={()=>operate({op:"setlang",lang:"en_US"})}>English</button>}
                         {data.config.lang == 'zh_CN' ? undefined : <button className="btn btn-link btn-sm" onClick={()=>operate({op:"setlang",lang:"zh_CN"})}>简体中文</button>}
-                        </td>
+                    </td>
+                </tr>
+                <tr>
+                    <td>{L.SHOW_DEV_MAC}</td>
+                    <td>{hide_mac ?
+                            <button className='btn btn-link btn-sm' onClick={()=>{hide_mac = false;}}>{L.SHOW_DEV_MAC_NO}</button>:
+                            <button className='btn btn-link btn-sm' onClick={()=>{hide_mac = true;}}>{L.SHOW_DEV_MAC_YES}</button>
+                        }</td>
                 </tr>
                 <tr>
                     <td>{L.CUR_CFG_FOLDER}</td>
