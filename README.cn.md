@@ -48,17 +48,6 @@ graph TD;
 
 ```
 
-- [Android phone](https://github.com/frto027/HeartbeatLanServer/releases/latest) apk download here
-- [HRCounter](https://github.com/qe201020335/HRCounter) A fast config generator is included in this software.
-
-The broadcast only used for server-pair. It is all private UDP connection if you turn off it after paried.
-
-TODO List:
-
-- ~~make port number configurable~~ make a [issue](https://github.com/frto027/HeartbeatLanClient/issues) if anybody need this feature
-- a beautiful heart ui for OBS
-- maybe support other games
-
 # License
 
 MIT License
