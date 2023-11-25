@@ -27,13 +27,13 @@ apk是同一个，但[用这个mod](https://github.com/frto027/HeartBeatLanClien
 ```mermaid
 graph TD;
     POLAR_H10[Polar H10心率带]
-    SMART_WATCH[智能手环/手表（心率广播）]
+    SMART_WATCH[智能手环或手表 心率广播]
     BLE_DEV[其它蓝牙心率设备]
-    PHONE[手机（安卓apk）]
+    PHONE[手机 安卓apk]
     BEATSABER[节奏光剑quest一体机mod]
-    PCAPP[webpage客户端（<b>你在这里</b>）]
-    BEATSABER_PC[节奏光剑PC（HRCounter模组）]
-    BROWSER[浏览器，查看数据/设置]
+    PCAPP[webpage客户端 <b>你在这里</b>]
+    BEATSABER_PC[节奏光剑PC HRCounter模组]
+    BROWSER[浏览器 查看数据和设置]
 
     POLAR_H10--蓝牙-->PHONE;
     SMART_WATCH--蓝牙-->PHONE;
@@ -44,7 +44,7 @@ graph TD;
 
     PCAPP--127.0.0.1:xxxx-->BROWSER;
     PCAPP--HRCounter协议-->BEATSABER_PC;
-    PCAPP--网页界面（未完成）-->OBS
+    PCAPP--网页界面 未完成-->OBS
 
 ```
 
