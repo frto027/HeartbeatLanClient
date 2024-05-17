@@ -1,3 +1,7 @@
+# Simplify Needed
+
+This project will be removed in the future, and another project with OSC support will be made.
+
 # HeartbeatLanReceiver
 
 [中文](README.cn.md)
