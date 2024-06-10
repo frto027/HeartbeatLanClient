@@ -1,7 +1,13 @@
 # Simplify Needed
 
-This project will be removed in the future, and another project with OSC support will be made.
+Depratched due to a better design with OSC Protocol.
 
+Future support maybe at [OSC2HRCounter](https://github.com/frto027/OSC2HRCounter).
+
+The Quest mod has supported both native BLE API and OSC Protocol.
+
+The apk has supported OSC Protocol.
+<s>
 # HeartbeatLanReceiver
 
 [中文](README.cn.md)
@@ -73,6 +79,7 @@ TODO List:
 - ~~make port number configurable~~ make a [issue](https://github.com/frto027/HeartbeatLanClient/issues) if anybody need this feature
 - a beautiful heart ui for OBS
 - maybe support other games
+</s>
 
 # License
 
