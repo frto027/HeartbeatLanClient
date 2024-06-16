@@ -15,6 +15,7 @@ This project is no longer needed.
 由于OSC协议提供了更好的方案，此项目已被过时。
 
 [Quest模组](https://github.com/frto027/HeartBeatLanClientBSQuest) 已经支持直接访问蓝牙设备，且可以通过OSC协议接收心率数据。
+
 PC模组[HRCounter](https://github.com/qe201020335/HRCounter)即将官方支持从OSC协议接收心率数据。
 
 [安卓APK](https://github.com/frto027/HeartbeatLanServer)已经支持通过OSC协议发送心率数据。
