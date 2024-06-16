@@ -1,13 +1,30 @@
-# Simplify Needed
+# Deleted Project
 
 Depratched due to a better design with OSC Protocol.
 
-Future support maybe at [OSC2HRCounter](https://github.com/frto027/OSC2HRCounter).
+[The Quest mod](https://github.com/frto027/HeartBeatLanClientBSQuest) has supported native BLE devices, and can also receive data by OSC Protocol.
 
-The Quest mod has supported both native BLE API and OSC Protocol.
+The PC Mod [HRCounter](https://github.com/qe201020335/HRCounter) will officialy support receive data by OSC Protocol.
 
-The apk has supported OSC Protocol.
-<s>
+[The apk](https://github.com/frto027/HeartbeatLanServer) has supported send data by OSC Protocol.
+
+This project is no longer needed.
+
+# 已移除的项目
+
+由于OSC协议提供了更好的方案，此项目已被过时。
+
+[Quest模组](https://github.com/frto027/HeartBeatLanClientBSQuest) 已经支持直接访问蓝牙设备，且可以通过OSC协议接收心率数据。
+PC模组[HRCounter](https://github.com/qe201020335/HRCounter)即将官方支持从OSC协议接收心率数据。
+
+[安卓APK](https://github.com/frto027/HeartbeatLanServer)已经支持通过OSC协议发送心率数据。
+
+这个工程不再需要。
+
+# Readme.md(folded)
+
+<details>
+    
 # HeartbeatLanReceiver
 
 [中文](README.cn.md)
@@ -79,7 +96,7 @@ TODO List:
 - ~~make port number configurable~~ make a [issue](https://github.com/frto027/HeartbeatLanClient/issues) if anybody need this feature
 - a beautiful heart ui for OBS
 - maybe support other games
-</s>
+</details>
 
 # License
 
